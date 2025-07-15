@@ -1,0 +1,3155 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="overflow-x: hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moreh - مريح | Modern Minimalist Furniture</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> <!-- Added AOS CSS -->
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-light: #f5f0e8;
+            --primary-medium: #e8d9c5;
+            --primary-dark: #d4b999;
+            --accent-light: #a68a64;
+            --accent-dark: #7a5c38;
+            --text-dark: #333;
+            --text-light: #f5f5f5;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --header-height: 70px; /* Define header height for mobile menu positioning */
+
+            /* Dark Mode Colors - Default to light mode values */
+            --bg-color: var(--primary-light);
+            --text-color: var(--text-dark);
+            --header-bg: white;
+            --header-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+            --header-gradient-start: var(--primary-light);
+            --header-gradient-end: var(--primary-medium);
+            --card-bg: white;
+            --footer-bg: var(--primary-dark);
+            --footer-text: var(--text-dark);
+            --footer-border: var(--accent-light);
+            --social-icon-bg: var(--primary-light);
+            --social-icon-border: var(--primary-medium);
+            --modal-bg: white;
+            --faq-question-bg: var(--primary-medium);
+            --faq-question-hover-bg: var(--primary-dark);
+            --faq-answer-bg: var(--primary-light);
+        }
+
+        /* Dark Mode Overrides */
+        body.dark-mode {
+            --bg-color: #1E1E1E;
+            --text-color: #F5F5F5;
+            --header-bg: #2A2A2A;
+            --header-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+            --header-gradient-start: #2A2A2A;
+            --header-gradient-end: #3A3A3A;
+            --card-bg: #333333;
+            --footer-bg: #2A2A2A;
+            --footer-text: #F5F5F5;
+            --footer-border: #7B5E42;
+            --social-icon-bg: #444444;
+            --social-icon-border: #555555;
+            --modal-bg: #333333;
+            --faq-question-bg: #3A3A3A;
+            --faq-question-hover-bg: #4A4A4A;
+            --faq-answer-bg: #2A2A2A;
+
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Default English font */
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for dark mode */
+            overflow-x: hidden; /* Ensures no horizontal scroll */
+            line-height: 1.6; /* Improve readability */
+            /* Removed explicit overflow-y: auto; as it's default and can sometimes cause a second scrollbar if not needed */
+        }
+
+        /* Arabic Font for RTL */
+        body.rtl {
+            font-family: 'Cairo', sans-serif; /* Arabic-friendly font */
+            direction: rtl;
+            text-align: right; /* Align all text to the right by default */
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--header-bg);
+            box-shadow: var(--header-shadow);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background-image: linear-gradient(to right, var(--header-gradient-start), var(--header-gradient-end));
+            background-size: 200% 100%;
+            animation: headerBackgroundMove 10s linear infinite alternate;
+            transition: all 0.3s ease-in-out; /* Modified for smooth transition of all properties */
+            height: auto; /* Ensure height can adjust */
+            /* Removed padding from here, now controlled by .header-container */
+            border-radius: 0; /* Initial state */
+        }
+
+        /* Scrolled Header Styles */
+        header.scrolled {
+            height: 60px; /* Slightly reduced height */
+            padding: 0 0; /* Adjust padding to reduce height, container will handle internal spacing */
+            border-radius: 30px; /* Pill shape */
+            top: 10px; /* Small vertical space from top */
+            left: 20px; /* Add horizontal space */
+            right: 20px; /* Add horizontal space */
+            width: calc(100% - 40px); /* Adjust width to account for horizontal space */
+            max-width: 1160px; /* Max width for desktop, considering 20px on each side from 1200px */
+            margin: 0 auto; /* Center the header */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Subtle drop shadow */
+            background-image: linear-gradient(to right, var(--header-gradient-start), var(--header-gradient-end)); /* Keep gradient */
+        }
+
+        /* Adjust header-container padding for scrolled state to maintain internal spacing */
+        header.scrolled .header-container {
+            padding: 0 30px; /* Maintain horizontal padding */
+            height: 100%; /* Ensure container fills the reduced header height */
+            align-items: center; /* Vertically center content */
+        }
+
+        /* Adjust logo image size for scrolled state */
+        header.scrolled .header-logo-img {
+            width: 120px; /* Smaller width for scrolled state */
+        }
+
+        /* Adjust nav links for scrolled state */
+        header.scrolled nav ul li a {
+            font-size: 16px; /* Slightly smaller font size */
+            padding: 5px 0; /* Reduced padding */
+        }
+
+        /* Adjust header icons for scrolled state */
+        header.scrolled .header-icons .icon-btn img {
+            width: 22px; /* Slightly smaller icons */
+            height: 22px;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 30px; /* Adjusted vertical padding for a more compact look */
+            display: flex;
+            justify-content: space-between; /* Default for mobile, overridden for desktop */
+            align-items: center;
+            flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            /* Ensure no extra margin/padding from previous text logo styles */
+            margin-left: 0;
+            margin-right: 0;
+            padding: 0;
+        }
+
+        /* New Logo Image Styles */
+        .header-logo-img {
+            width: 150px; /* Set the desired width - MODIFIED for bolder appearance */
+            height: auto; /* Maintain aspect ratio */
+            display: block; /* Remove extra space below the image */
+            transition: transform 0.3s ease; /* Add a subtle hover effect */
+        }
+
+        .header-logo-img:hover {
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+
+        /* Hide the old logo text elements */
+        .logo-text {
+            display: none; 
+        }
+
+        .logo-arabic {
+            display: none;
+        }
+
+        .logo-english {
+            display: none;
+        }
+
+        nav {
+            width: auto; /* Default width */
+            order: initial; /* Reset order */
+            display: flex; /* Always display flex for desktop */
+            flex-direction: row; /* Default row direction */
+            background-color: transparent; /* Default transparent background */
+            box-shadow: none; /* No shadow by default */
+            border-radius: 0; /* No border radius by default */
+            margin-top: 0; /* No margin top by default */
+            padding: 0; /* No padding by default */
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px; /* Increased gap */
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color); /* Use text-color variable */
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 8px 0; /* Increased padding */
+            font-size: 18px; /* Increased font size */
+            border-bottom: 2px solid transparent; /* Initial transparent border */
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-dark);
+            border-color: var(--accent-dark); /* Border on hover */
+        }
+
+        /* Removed the old ::after pseudo-element for navigation links */
+        nav ul li a::after {
+            content: none;
+        }
+
+        /* New Icon Container */
+        .header-icons {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Space between icons */
+            margin-left: 20px; /* Space from nav links */
+        }
+
+        /* Icon Button Base Styles */
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px; /* Add padding for easier clicking */
+            display: flex; /* Ensure icon is centered if it's an image/svg */
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease, transform 0.2s ease; /* Soft hover effect */
+        }
+
+        .icon-btn:hover {
+            opacity: 0.8; /* Reduced opacity on hover */
+            transform: scale(1.05); /* Slight scale on hover */
+        }
+
+        /* Specific Icon Adjustments */
+        .language-toggle-btn img {
+            width: 24px; /* Increased size to match dark mode toggle */
+            height: 24px;
+            filter: invert(0); /* Make it black in light mode */
+            transition: filter 0.5s ease;
+        }
+
+        body.dark-mode .language-toggle-btn img {
+            filter: invert(0.9) sepia(1) saturate(0.5) hue-rotate(180deg) brightness(1.2); /* Lighter tint for dark mode */
+        }
+
+        .dark-mode-toggle-btn img {
+            width: 26px; /* Size for moon icon */
+            height: 26px;
+            filter: invert(0); /* Brownish tint for light mode */
+            transition: filter 0.5s ease;
+        }
+
+        body.dark-mode .dark-mode-toggle-btn img {
+            filter: invert(1); /* Lighter tint for dark mode */
+        }
+
+        .mobile-menu-btn {
+            display: none; /* Hidden by default on desktop */
+            font-size: 24px; /* Keep existing size for hamburger */
+            color: #7B5E42; /* Medium brown for hamburger icon */
+            transition: color 0.5s ease;
+        }
+
+        body.dark-mode .mobile-menu-btn {
+            color: var(--text-color); /* Ensure it changes color in dark mode */
+        }
+
+        /* Language Switcher - old one removed */
+        .language-switcher {
+            display: none; /* Hide the old text-based switcher */
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 90vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
+                             url('https://livom.ch/cdn/shop/articles/HeroAngleLeft_3000x.jpg?v=1727255666');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0; /* Adjusted to remove space between header and hero */
+            animation: fadeIn 1s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Canvas for dynamic background */
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center; /* Keep hero content centered */
+            color: white;
+            max-width: 800px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: slideUp 1s ease forwards 0.5s;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: slideUp 1s ease forwards 0.8s;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--accent-dark);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: var(--transition);
+            opacity: 0;
+            animation: slideUp 1s ease forwards 1s;
+        }
+
+        .hero-btn:hover {
+            background-color: var(--accent-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 20px; /* Consistent vertical padding */
+        }
+
+        .section-title {
+            text-align: center; /* Keep section titles centered */
+            margin-bottom: 50px; /* Consistent margin below titles */
+            /* opacity: 0; */ /* Removed as AOS will handle initial opacity */
+            /* animation: fadeIn 1s ease forwards; */ /* Removed as AOS will handle animation */
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--accent-dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: var(--accent-dark);
+            bottom: -10px;
+            left: 25%; /* Center underline for LTR */
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background-color: var(--card-bg); /* Use card-bg variable */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition), background-color 0.5s ease;
+            /* opacity: 0; */ /* Removed as AOS will handle initial opacity */
+            /* animation: fadeIn 1s ease forwards; */ /* Removed as AOS will handle animation */
+            /* animation-delay: calc(var(--order) * 0.1s); */ /* Removed as AOS will handle delay */
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            height: 240px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-details {
+            padding: 20px;
+            text-align: left; /* Default LTR alignment */
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--text-color); /* Ensure title changes color */
+            transition: color 0.5s ease;
+        }
+
+        .product-price {
+            color: var(--accent-dark);
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .product-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: var(--primary-medium);
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .product-btn:hover {
+            background-color: var(--accent-dark);
+            color: white;
+        }
+
+        /* About Section */
+        .about-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .about-text {
+            /* opacity: 0; */ /* Removed as AOS will handle initial opacity */
+            /* animation: fadeInLeft 1s ease forwards; */ /* Removed as AOS will handle animation */
+            text-align: left; /* Default LTR alignment */
+        }
+
+        .about-text h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--accent-dark);
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: var(--text-color); /* Ensure paragraph text changes color */
+            transition: color 0.5s ease;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background-color: var(--primary-medium);
+            transition: background-color 0.5s ease;
+        }
+
+        body.dark-mode .testimonials {
+            background-color: #2A2A2A; /* Dark mode specific for testimonials */
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background-color: var(--card-bg); /* Use card-bg variable */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            /* opacity: 0; */ /* Removed as AOS will handle initial opacity */
+            /* animation: fadeInUp 1.5s ease forwards; */ /* Removed as AOS will handle animation */
+            /* animation-delay: calc(var(--order) * 0.1s); */ /* Removed as AOS will handle delay */
+            text-align: left; /* Default LTR alignment */
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .author-name {
+            font-weight: bold;
+        }
+
+        .author-title {
+            color: var(--accent-light);
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg); /* Use footer-bg variable */
+            color: var(--footer-text); /* Use footer-text variable */
+            padding: 80px 30px 40px; /* Increased padding */
+            border-top: 5px solid var(--footer-border); /* Use footer-border variable */
+            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 60px; /* Increased gap */
+        }
+
+        .footer-logo {
+            margin-bottom: 30px; /* Adjusted margin */
+            display: flex;
+            flex-direction: column;
+            text-align: left; /* Default LTR alignment */
+        }
+
+        .footer-logo .logo-text {
+            font-size: 30px; /* Increased font size */
+            color: var(--footer-text); /* Ensure logo text is dark */
+            transition: color 0.5s ease;
+        }
+
+        .footer-logo .logo-english {
+            font-size: 22px; /* Increased font size */
+            letter-spacing: 1px;
+        }
+
+        .footer-logo .logo-arabic {
+            font-size: 22px; /* Increased font size */
+        }
+
+        .footer-about p {
+            margin-bottom: 20px; /* Adjusted margin */
+            line-height: 1.8; /* Adjusted line height */
+            font-size: 17px; /* Increased font size */
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 25px; /* Increased gap */
+            margin-top: 30px; /* Adjusted margin */
+        }
+
+        .social-icon {
+            width: 30px; /* Increased size */
+            height: 30px; /* Increased size */
+            border-radius: 50%;
+            background-color: var(--social-icon-bg); /* Use social-icon-bg variable */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition), background-color 0.5s ease, border-color 0.5s ease;
+            font-size: 20px; /* Increased font size for icon text */
+            border: 1px solid var(--social-icon-border); /* Use social-icon-border variable */
+        }
+
+        .social-icon:hover {
+            background-color: var(--primary-medium); /* More distinct hover */
+            transform: scale(1.1); /* Added scale effect */
+        }
+
+        .social-icon img {
+            width: 35px; /* Size for the logo images */
+            height: 35px; /* Size for the logo images */
+            object-fit: contain;
+        }
+
+        .footer-links h3, .footer-contact h3 {
+            font-size: 24px; /* Increased font size */
+            margin-bottom: 30px; /* Adjusted margin */
+            position: relative;
+            padding-bottom: 15px; /* Adjusted padding */
+            text-align: left; /* Default LTR alignment */
+        }
+
+        .footer-links h3::after, .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            width: 70px; /* Increased width */
+            height: 3px; /* Increased thickness */
+            background-color: var(--accent-dark); /* Changed color for prominence */
+            bottom: 0;
+            left: 0; /* Underline starts from left for LTR */
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 15px; /* Adjusted margin */
+        }
+
+        .footer-links ul li a {
+            color: var(--footer-text); /* Ensure links are dark */
+            text-decoration: none;
+            transition: var(--transition), color 0.5s ease;
+            font-size: 17px; /* Increased font size */
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--accent-light); /* Changed hover color */
+            padding-left: 10px; /* Increased padding */
+        }
+
+        .contact-item {
+            display: flex;
+            margin-bottom: 20px; /* Adjusted margin */
+            align-items: center;
+            font-size: 17px; /* Increased font size */
+            text-align: left; /* Default LTR alignment */
+        }
+
+        .contact-icon {
+            margin-right: 15px; /* Adjusted margin */
+            font-size: 22px; /* Increased font size */
+        }
+
+        .copyright {
+            text-align: center; /* Keep copyright centered */
+            margin-top: 70px; /* Increased margin */
+            padding-top: 30px; /* Increased padding */
+            border-top: 1px solid rgba(0, 0, 0, 0.2); /* Adjusted border to be dark */
+            font-size: 16px; /* Increased font size */
+            transition: border-color 0.5s ease;
+        }
+
+        body.dark-mode .copyright {
+            border-color: rgba(255, 255, 255, 0.2); /* Lighter border in dark mode */
+        }
+
+        /* Product Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background-color: var(--modal-bg); /* Use modal-bg variable */
+            border-radius: 10px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto; /* Allows vertical scrolling within the modal if content exceeds max-height */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+            transform: translateY(50px);
+            transition: var(--transition), background-color 0.5s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-image {
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-content {
+            padding: 40px;
+            text-align: left; /* Default LTR alignment */
+            color: var(--text-color); /* Ensure modal content text changes color */
+            transition: color 0.5s ease;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-color); /* Ensure close button changes color */
+            transition: var(--transition), color 0.5s ease;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            color: var(--accent-dark);
+        }
+
+        .modal-title {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: var(--accent-dark);
+        }
+
+        .modal-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent-dark);
+            margin-bottom: 20px;
+        }
+
+        .modal-description {
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .modal-features {
+            margin-bottom: 30px;
+        }
+
+        .modal-features h4 {
+            margin-bottom: 10px;
+        }
+
+        .modal-features ul {
+            list-style-position: inside;
+            margin-left: 15px;
+        }
+
+        .modal-features ul li {
+            margin-bottom: 5px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .modal-btn {
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-btn.primary {
+            background-color: var(--accent-dark);
+            color: white;
+            border: none;
+        }
+
+        .modal-btn.primary:hover {
+            background-color: var(--accent-light);
+        }
+
+        .modal-btn.secondary {
+            background-color: transparent;
+            border: 2px solid var(--accent-dark);
+            color: var(--accent-dark);
+        }
+
+        .modal-btn.secondary:hover {
+            background-color: var(--primary-medium);
+        }
+
+        /* Product Overlay Animations */
+        .product-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: var(--transition);
+            padding: 20px;
+            text-align: center; /* Keep overlay text centered */
+        }
+
+        body.dark-mode .product-overlay {
+            background-color: rgba(51, 51, 51, 0.9); /* Darker overlay in dark mode */
+            color: var(--text-light);
+        }
+
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+
+        .product-overlay h3 {
+            margin-bottom: 15px;
+            color: var(--accent-dark);
+        }
+
+        .product-overlay p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .quick-view-btn {
+            padding: 8px 20px;
+            background-color: var(--accent-dark);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .quick-view-btn:hover {
+            background-color: var(--accent-light);
+        }
+
+        /* Carousel Styles */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .carousel-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 5;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .carousel-button.prev {
+            left: 0;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        .carousel-button.next {
+            right: 0;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from { 
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* New Header Background Animation */
+        @keyframes headerBackgroundMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Responsive Styles */
+        @media (min-width: 769px) {
+            .header-container {
+                justify-content: flex-start; /* Align items to start */
+                gap: 40px; /* Space between logo, nav, and icons */
+            }
+
+            nav {
+                flex: 1; /* Allow nav to take up available space */
+                justify-content: center; /* Center the ul within nav */
+                margin: 0; /* Remove any default margins */
+            }
+
+            nav ul {
+                justify-content: center; /* Ensure links are centered */
+                width: 100%; /* Take full width of nav */
+            }
+
+            .header-icons {
+                margin-left: auto; /* Push icons to the far right */
+            }
+        }
+
+        @media (max-width: 992px) {
+            .about-container {
+                grid-template-columns: 1fr; /* Stack on tablets and smaller */
+                text-align: center; /* Center text when stacked */
+                gap: 30px;
+            }
+            
+            .about-text {
+                order: -1; /* Move image above text on smaller screens */
+            }
+
+            .about-image {
+                margin-bottom: 20px;
+            }
+            
+            .modal {
+                grid-template-columns: 1fr;
+                width: 95%;
+                max-height: 95vh;
+            }
+            
+            .modal-image {
+                height: 300px;
+            }
+
+            .about-text h3 {
+                font-size: 24px;
+            }
+
+            .about-text p {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: nowrap; /* Prevent wrapping in header for better alignment */
+                justify-content: space-between;
+                padding: 15px 20px;
+            }
+
+            .logo {
+                margin-bottom: 0;
+            }
+
+            /* Responsive logo image size */
+            .header-logo-img {
+                width: 100px; /* Smaller width for tablets */
+            }
+
+            nav {
+                position: absolute; /* Absolute positioning for overlay */
+                top: var(--header-height); /* Position below header using variable */
+                right: 0; /* Align to the right */
+                left: auto; /* Ensure left is not set */
+                width: auto; /* Auto width */
+                margin: 0 20px; /* Add some side margin */
+                z-index: 99; /* Ensure it's above content but below header */
+                flex-direction: column;
+                background-color: var(--header-bg); /* Use header-bg for mobile nav */
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+                padding: 0; /* Start with 0 padding for slide effect */
+                max-height: 0; /* Initially hidden */
+                overflow: hidden; /* Hide overflow during transition */
+                opacity: 0; /* Start transparent */
+                transform: translateY(-20px); /* Start slightly above */
+                transition: max-height 0.5s ease-out, opacity 0.5s ease-out, transform 0.5s ease-out, background-color 0.5s ease;
+            }
+
+            nav.show {
+                max-height: 500px; /* Sufficiently large to show all content */
+                padding: 15px 0; /* Apply padding when shown */
+                opacity: 1; /* Fully visible */
+                transform: translateY(0); /* Slide into place */
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px; /* Smaller gap for vertical list */
+                align-items: center;
+            }
+
+            nav ul li a {
+                padding: 10px 20px; /* More padding for touch targets */
+                width: 100%;
+                text-align: center;
+                border-bottom: none; /* Remove border for mobile links */
+            }
+
+            nav ul li a:hover {
+                background-color: var(--primary-light);
+                border-radius: 5px;
+            }
+
+            body.dark-mode nav ul li a:hover {
+                background-color: #4A4A4A; /* Dark mode hover for mobile nav */
+            }
+
+            .header-icons {
+                order: 3; /* Position icons after logo and nav (when nav is hidden) */
+                margin-left: auto; /* Push to the right */
+                gap: 10px; /* Smaller gap for mobile icons */
+            }
+
+            .mobile-menu-btn {
+                display: block; /* Show on smaller screens */
+                font-weight: 550;
+                margin-bottom: 3px;
+                font-size: 26px; /* MODIFIED: Smaller size to match header icons */
+            }
+            
+            .hero {
+                height: 70vh;
+                margin-top: 70px; /* Further adjust for smaller header */
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+                margin-bottom: 15px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+                margin-bottom: 25px;
+            }
+
+            .hero-btn {
+                padding: 10px 25px;
+                font-size: 16px;
+            }
+            
+            section {
+                padding: 50px 15px;
+            }
+            
+            .section-title h2 {
+                font-size: 28px;
+            }
+
+            .section-title h2::after {
+                width: 60px; /* Adjust underline width */
+                left: calc(50% - 30px); /* Center the underline */
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 20px;
+            }
+            
+            .testimonial-grid {
+                grid-template-columns: 1fr; /* Stack testimonials vertically */
+                padding: 0 20px; /* Add horizontal padding */
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr; /* Stack all footer sections */
+                text-align: center; /* Center align content */
+                gap: 30px;
+            }
+
+            .footer-logo {
+                align-items: center; /* Center logo */
+            }
+
+            .footer-links h3::after, .footer-contact h3::after {
+                left: 50%;
+                transform: translateX(-50%); /* Center the underline */
+            }
+
+            .social-icons {
+                justify-content: center; /* Center social icons */
+            }
+
+            .contact-item {
+                justify-content: center; /* Center contact items */
+            }
+
+            /* Responsive adjustments for scrolled state */
+            header.scrolled {
+                height: 50px; /* Even smaller height for mobile scrolled */
+                top: 10px;
+                left: 15px;
+                right: 15px;
+                width: calc(100% - 30px);
+                border-radius: 25px; /* Adjust border-radius for mobile */
+            }
+
+            header.scrolled .header-logo-img {
+                width: 80px; /* Smaller logo for mobile scrolled */
+            }
+
+            header.scrolled .mobile-menu-btn {
+                font-size: 22px; /* Adjust mobile menu icon size */
+            }
+
+            /* Ensure mobile menu positioning is correct when scrolled */
+            header.scrolled nav {
+                top: 60px; /* Position below the smaller header */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-container {
+                padding: 10px 15px;
+            }
+            
+            /* Responsive logo image size for smallest screens */
+            .header-logo-img {
+                width: 80px; /* Even smaller width for mobile phones */
+            }
+
+            nav {
+                margin: 0 15px;
+            }
+            
+            .hero {
+                height: 60vh;
+                margin-top: 60px; /* Smallest header adjustment */
+            }
+            
+            .hero h1 {
+                font-size: 26px;
+                line-height: 1.2;
+            }
+            
+            .hero p {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+            
+            section {
+                padding: 40px 10px;
+            }
+            
+            .section-title h2 {
+                font-size: 24px;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr; /* Stack products vertically */
+                gap: 20px;
+                padding: 0 15px; /* Add horizontal padding */
+            }
+            
+            .modal {
+                width: 98%;
+                margin: 10px; /* Add margin to prevent touching edges */
+            }
+            
+            .modal-image {
+                height: 200px; /* Smaller image height on very small screens */
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+
+            .modal-title {
+                font-size: 22px;
+                margin-bottom: 10px;
+            }
+
+            .modal-price {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .modal-description {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+
+            .modal-features h4 {
+                font-size: 16px;
+            }
+
+            .modal-features ul {
+                margin-left: 10px;
+            }
+
+            .modal-features ul li {
+                font-size: 14px;
+            }
+
+            .modal-actions {
+                flex-direction: column; /* Stack buttons */
+                gap: 10px;
+            }
+
+            .modal-btn {
+                width: 100%; /* Full width buttons */
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .modal-close {
+                font-size: 20px;
+                top: 10px;
+                right: 10px;
+            }
+
+            .about-text h3 {
+                font-size: 22px;
+            }
+
+            .about-text p {
+                font-size: 15px;
+            }
+
+            .testimonial-card {
+                padding: 25px;
+            }
+
+            .testimonial-text {
+                font-size: 15px;
+            }
+
+            footer {
+                padding: 60px 20px 30px;
+            }
+
+            .footer-logo .logo-text {
+                font-size: 26px;
+            }
+
+            .footer-logo .logo-english, .footer-logo .logo-arabic {
+                font-size: 20px;
+            }
+
+            .footer-about p {
+                font-size: 16px;
+            }
+
+            .footer-links h3, .footer-contact h3 {
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
+
+            .footer-links ul li a, .contact-item {
+                font-size: 16px;
+            }
+
+            .copyright {
+                margin-top: 50px;
+                padding-top: 20px;
+                font-size: 14px;
+            }
+
+            header.scrolled {
+                height: 45px; /* Smallest height for very small screens */
+                top: 8px;
+                left: 10px;
+                right: 10px;
+                width: calc(100% - 20px);
+                border-radius: 22px;
+            }
+
+            header.scrolled .header-logo-img {
+                width: 70px; /* Smallest logo for very small screens */
+            }
+
+            header.scrolled .mobile-menu-btn {
+                font-size: 20px;
+            }
+
+            header.scrolled nav {
+                top: 55px; /* Position below the smallest header */
+            }
+        }
+
+        /* RTL Specific Styles */
+        body.rtl {
+            direction: rtl;
+            text-align: right;
+        }
+
+        body.rtl .header-container {
+            flex-direction: row-reverse; /* Reverse order of main items */
+            justify-content: space-between; /* Maintain space between items */
+        }
+
+        body.rtl .logo {
+            /* No specific margin adjustments needed for the image logo in RTL, as it's centered */
+        }
+
+        body.rtl nav ul {
+            flex-direction: row-reverse; /* Reverse order of nav items */
+        }
+
+        body.rtl nav ul li a {
+            border-bottom: 2px solid transparent; /* Keep border for consistency */
+        }
+
+        body.rtl nav ul li a:hover {
+            border-color: var(--accent-dark); /* Keep border on hover */
+        }
+
+        body.rtl .header-icons {
+            margin-left: auto; /* Push icons to the left in RTL */
+            margin-right: 0;
+            flex-direction: row-reverse; /* Reverse order of icons for RTL */
+        }
+
+        body.rtl .section-title h2::after {
+            left: auto;
+            right: 25%; /* Underline starts from right for RTL */
+        }
+
+        body.rtl .product-details,
+        body.rtl .about-text,
+        body.rtl .testimonial-card,
+        body.rtl .footer-logo,
+        body.rtl .footer-about p,
+        body.rtl .footer-links h3,
+        body.rtl .footer-contact h3,
+        body.rtl .contact-item,
+        body.rtl .modal-content {
+            text-align: right; /* Align text to right for RTL */
+        }
+
+        body.rtl .testimonial-author img {
+            margin-right: 0;
+            margin-left: 15px; /* Adjust margin for RTL */
+        }
+
+        body.rtl .social-icons {
+            flex-direction: row-reverse; /* Reverse social icons order */
+        }
+
+        body.rtl .footer-links h3::after,
+        body.rtl .footer-contact h3::after {
+            left: auto; /* Underline starts from right for RTL */
+            right: 0;
+        }
+
+        body.rtl .footer-links ul li a:hover {
+            padding-left: 0;
+            padding-right: 10px; /* Adjust padding for RTL hover */
+        }
+
+        body.rtl .contact-icon {
+            margin-right: 0;
+            margin-left: 15px; /* Adjust margin for RTL */
+        }
+
+        body.rtl .modal-close {
+            right: auto;
+            left: 15px; /* Move close button to left for RTL */
+        }
+
+        body.rtl .modal-features ul {
+            list-style-position: inside;
+            margin-left: 0;
+            margin-right: 15px; /* Adjust list indent for RTL */
+        }
+
+        /* Carousel buttons for RTL */
+        body.rtl .carousel-button.prev {
+            left: auto;
+            right: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            transform: translateY(-50%) rotate(180deg); /* Flip arrow and position */
+        }
+
+        body.rtl .carousel-button.next {
+            right: auto;
+            left: 0;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            transform: translateY(-50%) rotate(180deg); /* Flip arrow and position */
+        }
+
+        /* Mobile RTL adjustments */
+        @media (max-width: 768px) {
+            body.rtl .header-container {
+                flex-wrap: nowrap;
+                flex-direction: row-reverse; /* Ensure row-reverse for mobile RTL */
+            }
+
+            body.rtl .logo {
+                order: 1; /* Move logo to the left in RTL mobile */
+                margin-left: 0;
+                margin-right: auto; /* Push to the left */
+            }
+
+            body.rtl .header-icons {
+                order: 3; /* Move icons to the right in RTL mobile */
+                margin-left: auto; /* Push to the right */
+                margin-right: 0;
+                flex-direction: row-reverse; /* Keep icons in order [☰] [🌙] [🌐] from left to right */
+            }
+
+            body.rtl nav {
+                left: auto;
+                right: 0; /* Align mobile menu to the right in RTL */
+                margin: 0 20px; /* Maintain side margin */
+                transform: translateY(-20px); /* Start off-screen right */
+            }
+
+            body.rtl nav.show {
+                transform: translateY(0); /* Slide in from right */
+            }
+
+            body.rtl nav ul {
+                align-items: center; /* Center align items in vertical menu */
+                flex-direction: column; /* Keep vertical for mobile */
+            }
+
+            body.rtl .section-title h2::after {
+                left: 50%;
+                right: auto; /* Center the underline for RTL mobile */
+                transform: translateX(50%); /* Adjust for RTL centering */
+            }
+
+            body.rtl .footer-links h3::after,
+            body.rtl .footer-contact h3::after {
+                left: 50%;
+                right: auto; /* Center the underline for RTL mobile */
+                transform: translateX(50%); /* Adjust for RTL centering */
+            }
+        }
+
+        /* WhatsApp Button Styles */
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366; /* WhatsApp green */
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000; /* Ensure it's above other content */
+            text-decoration: none;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+            background-color: #1DA851; /* Darker green on hover */
+        }
+
+        .whatsapp-button img {
+            width: 35px;
+            height: 35px;
+        }
+
+        /* RTL adjustment for WhatsApp button */
+        body.rtl .whatsapp-button {
+            right: auto;
+            left: 20px;
+        }
+
+        @media (max-width: 576px) {
+            .whatsapp-button {
+                width: 50px;
+                height: 50px;
+                bottom: 15px;
+                right: 15px;
+            }
+
+            .whatsapp-button img {
+                width: 30px;
+                height: 30px;
+            }
+
+            body.rtl .whatsapp-button {
+                left: 15px;
+            }
+        }
+
+        /* FAQ Section Styles */
+        .faq-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background-color: var(--card-bg); /* Use card-bg variable */
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: background-color 0.5s ease;
+        }
+
+        .faq-question {
+            padding: 20px 30px;
+            background-color: var(--faq-question-bg); /* Use faq-question-bg variable */
+            color: var(--text-color); /* Use text-color variable */
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease, color 0.5s ease;
+        }
+
+        .faq-question:hover {
+            background-color: var(--faq-question-hover-bg); /* Use faq-question-hover-bg variable */
+        }
+
+        .faq-question .icon {
+            font-size: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active .icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 30px;
+            background-color: var(--faq-answer-bg); /* Use faq-answer-bg variable */
+            color: var(--text-color); /* Use text-color variable */
+            font-size: 17px;
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out, background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .faq-answer.active {
+            max-height: 200px; /* Adjust as needed based on content */
+            padding: 20px 30px;
+        }
+        /* RTL adjustments for FAQ */
+        body.rtl .faq-question {
+            text-align: right;
+            flex-direction: row-reverse; /* Reverse order of question and icon */
+        }
+
+        body.rtl .faq-question .icon {
+            margin-left: 0;
+            margin-right: 10px; /* Add margin to the right of the icon */
+        }
+
+        body.rtl .faq-answer {
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .faq-question {
+                font-size: 18px;
+                padding: 15px 20px;
+            }
+
+            .faq-answer {
+                font-size: 16px;
+                padding: 0 20px;
+            }
+
+            .faq-answer.active {
+                padding: 15px 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .faq-question {
+                font-size: 16px;
+                padding: 12px 15px;
+            }
+
+            .faq-answer {
+                font-size: 15px;
+                padding: 0 15px;
+            }
+
+            .faq-answer.active {
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body style="overflow-x: hidden;">
+    <header>
+        <div class="header-container">
+            <div class="logo" onclick="window.location.href='#'">
+                <!-- Replaced the logo-text div with the new logo image -->
+                <img src="images/headerlogo.png" alt="Moreh Logo" class="header-logo-img">
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                    <li><a href="#products" data-en="Products" data-ar="المنتجات">Products</a></li>
+                    <li><a href="#about" data-en="About Us" data-ar="عنا">About Us</a></li>
+                    <li><a href="#testimonials" data-en="Testimonials" data-ar="الشهادات">Testimonials</a></li>
+                    <li><a href="#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
+                    <li><a href="#faq" data-en="FAQ" data-ar="الأسئلة الشائعة">FAQ</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-icons">
+                <button class="icon-btn language-toggle-btn" id="language-toggle-btn">
+                    <img src="images/language-switcher.jpg" alt="Language Icon">
+                </button>
+                <button class="icon-btn dark-mode-toggle-btn" id="dark-mode-toggle-btn">
+                    <img src="images/darkmode.webp" alt="Dark Mode Icon">
+                </button>
+                <button class="icon-btn mobile-menu-btn">☰</button>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-content">
+            <h1 id="hero-title">Modern Minimalist Furniture for Your Home</h1>
+            <p id="hero-subtitle">Discover our curated collection of sleek, functional, and elegant furniture designs.</p>
+            <a href="#products" class="hero-btn" id="hero-btn-text">Explore Collection</a>
+        </div>
+    </section>
+    
+    <section id="products">
+        <div class="section-title" data-aos="fade-up" data-aos-duration="700"> <!-- Added AOS -->
+            <h2 id="products-section-title">Our Minimalist Collection - مجموعتنا البسيطة</h2>
+        </div>
+        
+        <div class="products-grid">
+            <!-- Product 1: Minimalist Sectional Sofa -->
+            <div class="product-card" style="--order: 1;" onclick="openModal('product1')"
+                 data-images="sofra/1.jpg, sofra/2.jpg, sofra/3.jpg, sofra/4.jpg, sofra/5.jpg, sofra/6.jpg, sofra/7.jpg, sofra/8.jpg"
+                 data-aos="fade-up" data-aos-delay="100" data-aos-duration="600"> <!-- Added AOS -->
+                <div class="product-image">
+                    <img src="sofra/1.jpg" alt="Minimalist Sectional Sofa in light grey" />
+                </div>
+                <div class="product-overlay">
+                    <h3>سفره ونيش مودرن</h3>
+                    <p>سفره مودرن 6 كراسي ونيش</p>
+                    <a href="#" class="quick-view-btn">Quick View</a>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">سفره ونيش مودرن</h3>
+                    <div class="product-price">31,000 EGP</div>
+                    <a href="#" class="product-btn">View Details</a>
+                </div>
+            </div>
+            
+            <!-- Product 2: Modern Dining Set -->
+            <div class="product-card" style="--order: 2;" onclick="openModal('product2')"
+                 data-images="panda/1.jpg, panda/2.jpg, panda/3.jpg, panda/4.jpg, panda/5.jpg"
+                 data-aos="fade-up" data-aos-delay="200" data-aos-duration="600"> <!-- Added AOS -->
+                <div class="product-image">
+                    <img src="panda/1.jpg" alt="Modern Dining Set with natural wood table" />
+                </div>
+                <div class="product-overlay">
+                    <h3>انتريه باندا</h3>
+                    <p>انتريه باندا احدث موديل</p>
+                    <a href="#" class="quick-view-btn">Quick View</a>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">انتريه باندا</h3>
+                    <div class="product-price">25,000 EGP</div>
+                    <a href="#" class="product-btn">View Details</a>
+                </div>
+            </div>
+            
+            <!-- Product 3: Minimalist Extendable Dining Table -->
+            <div class="product-card" style="--order: 3;" onclick="openModal('product3')"
+                 data-images="https://via.placeholder.com/600x400/F5F5F5/333333?text=Extendable+Table+1, https://via.placeholder.com/600x400/F5F5F5/333333?text=Extendable+Table+2, https://via.placeholder.com/600x400/F5F5F5/333333?text=Extendable+Table+3"
+                 data-aos="fade-up" data-aos-delay="300" data-aos-duration="600"> <!-- Added AOS -->
+                <div class="product-image">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Extendable+Table" alt="Minimalist Extendable Dining Table" />
+                </div>
+                <div class="product-overlay">
+                    <h3>Minimalist Extendable Dining Table</h3>
+                    <p>Durable matte-finish, easily extends.</p>
+                    <a href="#" class="quick-view-btn">Quick View</a>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Minimalist Extendable Dining Table</h3>
+                    <div class="product-price">$1,599.00</div>
+                    <a href="#" class="product-btn">View Details</a>
+                </div>
+            </div>
+            
+            <!-- Product 4: Platform Bed with Integrated Headboard -->
+            <div class="product-card" style="--order: 4;" onclick="openModal('product4')"
+                 data-images="https://via.placeholder.com/600x400/F5F5F5/333333?text=Platform+Bed+1, https://via.placeholder.com/600x400/F5F5F5/333333?text=Platform+Bed+2, https://via.placeholder.com/600x400/F5F5F5/333333?text=Platform+Bed+3"
+                 data-aos="fade-up" data-aos-delay="400" data-aos-duration="600"> <!-- Added AOS -->
+                <div class="product-image">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Platform+Bed" alt="Platform Bed with Integrated Headboard" />
+                </div>
+                <div class="product-overlay">
+                    <h3>Platform Bed with Integrated Headboard</h3>
+                    <p>Low-profile frame, subtly upholstered headboard.</p>
+                    <a href="#" class="quick-view-btn">Quick View</a>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Platform Bed with Integrated Headboard</h3>
+                    <div class="product-price">$1,799.00</div>
+                    <a href="#" class="product-btn">View Details</a>
+                </div>
+            </div>
+            
+            <!-- Product 5: Modular Open Bookshelf -->
+            <div class="product-card" style="--order: 5;" onclick="openModal('product5')"
+                 data-images="https://via.placeholder.com/600x400/F5F5F5/333333?text=Modular+Bookshelf+1, https://via.placeholder.com/600x400/F5F5F5/333333?text=Modular+Bookshelf+2, https://via.placeholder.com/600x400/F5F5F5/333333?text=Modular+Bookshelf+3"
+                 data-aos="fade-up" data-aos-delay="500" data-aos-duration="600"> <!-- Added AOS -->
+                <div class="product-image">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Modular+Bookshelf" alt="Modular Open Bookshelf" />
+                </div>
+                <div class="product-overlay">
+                    <h3>Modular Open Bookshelf</h3>
+                    <p>Flexible storage, clean lines, simple structure.</p>
+                    <a href="#" class="quick-view-btn">Quick View</a>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Modular Open Bookshelf</h3>
+                    <div class="product-price">$649.00</div>
+                    <a href="#" class="product-btn">View Details</a>
+                </div>
+            </div>
+            
+            <!-- Product 6: Accent Armchair -->
+            <div class="product-card" style="--order: 6;" onclick="openModal('product6')"
+                 data-images="https://via.placeholder.com/600x400/F5F5F5/333333?text=Accent+Armchair+1, https://via.placeholder.com/600x400/F5F5F5/333333?text=Accent+Armchair+2, https://via.placeholder.com/600x400/F5F5F5/333333?text=Accent+Armchair+3"
+                 data-aos="fade-up" data-aos-delay="600" data-aos-duration="600"> <!-- Added AOS -->
+                <div class="product-image">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Accent+Armchair" alt="Accent Armchair in navy blue" />
+                </div>
+                <div class="product-overlay">
+                    <h3>Accent Armchair</h3>
+                    <p>Minimalist profile, comfortable fabric, metal legs.</p>
+                    <a href="#" class="quick-view-btn">Quick View</a>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Accent Armchair</h3>
+                    <div class="product-price">$599.00</div>
+                    <a href="#" class="product-btn">View Details</a>
+                </div>
+            </div>
+
+            <!-- Product 7: Geometric Coffee Table -->
+            <div class="product-card" style="--order: 7;" onclick="openModal('product7')"
+                 data-images="https://via.placeholder.com/600x400/F5F5F5/333333?text=Geometric+Table+1, https://via.placeholder.com/600x400/F5F5F5/333333?text=Geometric+Table+2, https://via.placeholder.com/600x400/F5F5F5/333333?text=Geometric+Table+3"
+                 data-aos="fade-up" data-aos-delay="100" data-aos-duration="600"> <!-- Added AOS -->
+                <div class="product-image">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Geometric+Table" alt="Geometric Coffee Table with glass top" />
+                </div>
+                <div class="product-overlay">
+                    <h3>Geometric Coffee Table</h3>
+                    <p>Clear glass top, unique metal base.</p>
+                    <a href="#" class="quick-view-btn">Quick View</a>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Geometric Coffee Table</h3>
+                    <div class="product-price">$349.00</div>
+                    <a href="#" class="product-btn">View Details</a>
+                </div>
+            </div>
+
+            <!-- Product 8: Minimalist Arc Floor Lamp -->
+            <div class="product-card" style="--order: 8;" onclick="openModal('product8')"
+                 data-images="https://via.placeholder.com/600x400/F5F5F5/333333?text=Arc+Lamp+1, https://via.placeholder.com/600x400/F5F5F5/333333?text=Arc+Lamp+2, https://via.placeholder.com/600x400/F5F5F5/333333?text=Arc+Lamp+3"
+                 data-aos="fade-up" data-aos-delay="200" data-aos-duration="600"> <!-- Added AOS -->
+                <div class="product-image">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Arc+Lamp" alt="Minimalist Arc Floor Lamp" />
+                </div>
+                <div class="product-overlay">
+                    <h3>Minimalist Arc Floor Lamp</h3>
+                    <p>Sleek design, adjustable arc, integrated LED.</p>
+                    <a href="#" class="quick-view-btn">Quick View</a>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Minimalist Arc Floor Lamp</h3>
+                    <div class="product-price">$189.00</div>
+                    <a href="#" class="product-btn">View Details</a>
+                </div>
+            </div>
+
+            <!-- Product 9: Ergonomic Task Chair -->
+            <div class="product-card" style="--order: 9;" onclick="openModal('product9')"
+                 data-images="https://via.placeholder.com/600x400/F5F5F5/333333?text=Task+Chair+1, https://via.placeholder.com/600x400/F5F5F5/333333?text=Task+Chair+2, https://via.placeholder.com/600x400/F5F5F5/333333?text=Task+Chair+3"
+                 data-aos="fade-up" data-aos-delay="300" data-aos-duration="600"> <!-- Added AOS -->
+                <div class="product-image">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Task+Chair" alt="Ergonomic Task Chair" />
+                </div>
+                <div class="product-overlay">
+                    <h3>Ergonomic Task Chair</h3>
+                    <p>Comfort and support for long work sessions.</p>
+                    <a href="#" class="quick-view-btn">Quick View</a>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Ergonomic Task Chair</h3>
+                    <div class="product-price">$450.00</div>
+                    <a href="#" class="product-btn">View Details</a>
+                </div>
+            </div>
+
+            <!-- Product 10: Slim Entryway Console -->
+            <div class="product-card" style="--order: 10;" onclick="openModal('product10')"
+                 data-images="https://via.placeholder.com/600x400/F5F5F5/333333?text=Console+Table+1, https://via.placeholder.com/600x400/F5F5F5/333333?text=Console+Table+2, https://via.placeholder.com/600x400/F5F5F5/333333?text=Console+Table+3"
+                 data-aos="fade-up" data-aos-delay="400" data-aos-duration="600"> <!-- Added AOS -->
+                <div class="product-image">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Console+Table" alt="Slim Entryway Console" />
+                </div>
+                <div class="product-overlay">
+                    <h3>Slim Entryway Console</h3>
+                    <p>Slender and elegant, perfect for narrow spaces.</p>
+                    <a href="#" class="quick-view-btn">Quick View</a>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Slim Entryway Console</h3>
+                    <div class="product-price">$299.00</div>
+                    <a href="#" class="product-btn">View Details</a>
+                </div>
+            </div>
+
+            <!-- Product 11: Outdoor Lounge Set -->
+            <div class="product-card" style="--order: 11;" onclick="openModal('product11')"
+                 data-images="https://via.placeholder.com/600x400/F5F5F5/333333?text=Outdoor+Lounge+1, https://via.placeholder.com/600x400/F5F5F5/333333?text=Outdoor+Lounge+2, https://via.placeholder.com/600x400/F5F5F5/333333?text=Outdoor+Lounge+3"
+                 data-aos="fade-up" data-aos-delay="500" data-aos-duration="600"> <!-- Added AOS -->
+                <div class="product-image">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Outdoor+Lounge" alt="Outdoor Lounge Set" />
+                </div>
+                <div class="product-overlay">
+                    <h3>Outdoor Lounge Set</h3>
+                    <p>Weather-resistant, minimalist aesthetic.</p>
+                    <a href="#" class="quick-view-btn">Quick View</a>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Outdoor Lounge Set</h3>
+                    <div class="product-price">$1200.00</div>
+                    <a href="#" class="product-btn">View Details</a>
+                </div>
+            </div>
+
+            <!-- Product 12: Minimalist Sliding Door Wardrobe -->
+            <div class="product-card" style="--order: 12;" onclick="openModal('product12')"
+                 data-images="https://via.placeholder.com/600x400/F5F5F5/333333?text=Sliding+Wardrobe+1, https://via.placeholder.com/600x400/F5F5F5/333333?text=Sliding+Wardrobe+2, https://via.placeholder.com/600x400/F5F5F5/333333?text=Sliding+Wardrobe+3"
+                 data-aos="fade-up" data-aos-delay="600" data-aos-duration="600"> <!-- Added AOS -->
+                <div class="product-image">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Sliding+Wardrobe" alt="Minimalist Sliding Door Wardrobe" />
+                </div>
+                <div class="product-overlay">
+                    <h3>Minimalist Sliding Door Wardrobe</h3>
+                    <p>Spacious storage, clean exterior, smooth doors.</p>
+                    <a href="#" class="quick-view-btn">Quick View</a>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Minimalist Sliding Door Wardrobe</h3>
+                    <div class="product-price">$950.00</div>
+                    <a href="#" class="product-btn">View Details</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="about" class="about-section">
+        <div class="section-title" data-aos="fade-up" data-aos-duration="700"> <!-- Added AOS -->
+            <h2 id="about-section-title">About Moreh - عن مريح</h2>
+        </div>
+        
+        <div class="about-container">
+            <div class="about-image" data-aos="fade-right" data-aos-duration="700"> <!-- Added AOS -->
+                <img src="images/showroom.jpg" alt="Moreh furniture showroom with elegant displays" />
+            </div>
+            <div class="about-text" data-aos="fade-left" data-aos-duration="700"> <!-- Added AOS -->
+                <h3 id="about-heading">Crafting Modern Comfort Since 2025</h3>
+                <p id="about-paragraph1">Founded in Egypt in 2025, Moreh has become synonymous with modern minimalist furniture that combines sleek design with exceptional functionality.</p>
+                <p id="about-paragraph2">Our name "Moreh" (مريح) means "comfortable" in Arabic, reflecting our commitment to creating furniture that enhances your living space with both style and comfort, all within a coherent minimalist aesthetic.</p>
+                <p id="about-paragraph3">Transforming spaces with stylish, comfortable, and durable furniture. Your dream home starts here ❤.</p>
+		<p id="about-paragraph4">Shipping all over Egypt.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="testimonials" class="testimonials">
+        <div class="section-title" data-aos="fade-up" data-aos-duration="700"> <!-- Added AOS -->
+            <h2>What Our Customers Say</h2>
+        </div>
+        
+        <div class="testimonial-grid">
+            <div class="testimonial-card" style="--order: 1;" data-aos="fade-up" data-aos-delay="100" data-aos-duration="600"> <!-- Added AOS -->
+                <p class="testimonial-text">"The Moreh sectional sofa perfectly fits our modern apartment. The design is so clean, and it's surprisingly comfortable. Highly recommend!"</p>
+                <div class="testimonial-author">
+                    <img src="images/esraa.jpg" alt="Esraa, satisfied customer" />
+                    <div>
+                        <div class="author-name">Esraa Abd ElRahman</div>
+                        <div class="author-title">Dubai</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card" style="--order: 2;" data-aos="fade-up" data-aos-delay="200" data-aos-duration="600"> <!-- Added AOS -->
+                <p class="testimonial-text">"We love our new Moreh dining set. It's elegant, sturdy, and the minimalist design really elevates our dining area. Fantastic quality!"</p>
+                <div class="testimonial-author">
+                    <img src="images/adham.jpg" alt="Adham, happy client" />
+                    <div>
+                        <div class="author-name">Adham Mohammed</div>
+                        <div class="author-title">Riyadh</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card" style="--order: 3;" data-aos="fade-up" data-aos-delay="300" data-aos-duration="600"> <!-- Added AOS -->
+                <p class="testimonial-text">"The platform bed from Moreh is exactly what we were looking for. Simple, chic, and incredibly well-made. It completed our minimalist bedroom."</p>
+                <div class="testimonial-author">
+                    <img src="images/mariam.jpg" alt="Mariam, delighted customer" />
+                    <div>
+                        <div class="author-name">Mariam Abd ElRahman</div>
+                        <div class="author-title">Doha</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <div class="section-title" data-aos="fade-up" data-aos-duration="700"> <!-- Added AOS -->
+            <h2 id="faq-section-title">الأسئلة الشائعة - Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="100" data-aos-duration="600"> <!-- Added AOS -->
+                <div class="faq-question" data-en="Is delivery available to all governorates?" data-ar="📦 هل التوصيل متاح لكل المحافظات؟">
+                    <span>📦 هل التوصيل متاح لكل المحافظات؟</span>
+                    <span class="icon">▼</span>
+                </div>
+                <div class="faq-answer" data-en="Yes, we provide delivery service to all governorates of Egypt within 3 to 7 working days depending on the area." data-ar="نعم، بنوفر خدمة التوصيل لجميع محافظات مصر خلال 3 إلى 7 أيام عمل حسب المنطقة.">
+                    نعم، بنوفر خدمة التوصيل لجميع محافظات مصر خلال 3 إلى 7 أيام عمل حسب المنطقة.
+                </div>
+            </div>
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="200" data-aos-duration="600"> <!-- Added AOS -->
+                <div class="faq-question" data-en="Can I request a specific color?" data-ar="🎨 هل ممكن اطلب لون معين؟">
+                    <span>🎨 هل ممكن اطلب لون معين؟</span>
+                    <span class="icon">▼</span>
+                </div>
+                <div class="faq-answer" data-en="Yes, we can execute the color according to the customer's desire." data-ar="أيوه، نقدر ننفذ اللون حسب رغبه العميل.">
+                    أيوه، نقدر ننفذ اللون حسب رغبه العميل.
+                </div>
+            </div>
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="300" data-aos-duration="600"> <!-- Added AOS -->
+                <div class="faq-question" data-en="Can I request different sizes?" data-ar="📏 هل ممكن أطلب مقاسات مختلفة؟">
+                    <span>📏 هل ممكن أطلب مقاسات مختلفة؟</span>
+                    <span class="icon">▼</span>
+                </div>
+                <div class="faq-answer" data-en="Of course, for some pieces, we offer size customization according to the customer's desire." data-ar="طبعًا، في بعض القطع بنوفر فيها تخصيص المقاسات حسب رغبة العميل.">
+                    طبعًا، في بعض القطع بنوفر فيها تخصيص المقاسات حسب رغبة العميل.
+                </div>
+            </div>
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="400" data-aos-duration="600"> <!-- Added AOS -->
+                <div class="faq-question" data-en="How can I contact support?" data-ar="💬 إزاي أتواصل مع الدعم؟">
+                    <span>💬 إزاي أتواصل مع الدعم؟</span>
+                    <span class="icon">▼</span>
+                </div>
+                <div class="faq-answer" data-en="You can contact us directly through the fixed WhatsApp button or through the 'Contact Us' button on each product page." data-ar="تقدر تتواصل معنا مباشرة من خلال زر الواتساب الثابت أو من خلال زر 'تواصل معنا' الموجود في صفحة كل منتج.">
+                    تقدر تتواصل معنا مباشرة من خلال زر الواتساب الثابت أو من خلال زر 'تواصل معنا' الموجود في صفحة كل منتج.
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-about" data-aos="fade-right" data-aos-duration="700"> <!-- Added AOS -->
+                <div class="footer-logo">
+                    <!-- Copied Header Logo -->
+                    <img src="images/headerlogo.png" alt="Moreh Logo" class="header-logo-img">
+                </div>
+                <p id="footer-about-text">Modern minimalist furniture combining sleek design with exceptional functionality for discerning homeowners.</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/morehhome" class="social-icon">
+                        <img src="https://freepnglogo.com/images/all_img/facebook-logo.png" alt="Facebook Logo" />
+                    </a>
+                    <a href="#" class="social-icon">
+                        <img src="https://cdn.shoplightspeed.com/shops/611355/files/26657829/instagram-filled.png" alt="Instagram Logo" />
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-links" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200"> <!-- Added AOS -->
+                <h3 id="footer-links-heading">Quick Links</h3>
+                <ul>
+                    <li><a href="#" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                    <li><a href="#products" data-en="Products" data-ar="المنتجات">Products</a></li>
+                    <li><a href="#about" data-en="About Us" data-ar="عنا">About Us</a></li>
+                    <li><a href="#testimonials" data-en="Testimonials" data-ar="الشهادات">Testimonials</a></li>
+                    <li><a href="#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
+                    <li><a href="#faq" data-en="FAQ" data-ar="الأسئلة الشائقة">FAQ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact" data-aos="fade-left" data-aos-duration="700" data-aos-delay="400"> <!-- Added AOS -->
+                <h3 id="footer-contact-heading">Contact Us</h3>
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <span id="contact-address">Cairo Egypt</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <span id="contact-phone">01553188286</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">✉️</span>
+                    <span id="contact-email">adhamshalapy@yahoo.com</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright" data-aos="fade-up" data-aos-duration="700"> <!-- Added AOS -->
+            <p id="copyright-text">&copy; 2025 Moreh Furniture. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- WhatsApp Fixed Button -->
+    <a href="https://wa.me/201553188286?text=Hello!%20I%27m%20interested%20in%20a%20product%20from%20your%20website." class="whatsapp-button" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1200px-WhatsApp.svg.png" alt="WhatsApp Icon">
+    </a>
+
+    <!-- Product Modals -->
+    <!-- Product 1 Modal -->
+    <div class="modal-overlay" id="product1-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-image">
+                <div class="carousel-container">
+                    <img src="sofra/1.jpg" alt="Full view of minimalist sectional sofa" class="carousel-image" />
+                    <button class="carousel-button prev" onclick="prevImage('product1')">❮</button>
+                    <button class="carousel-button next" onclick="nextImage('product1')">❯</button>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h2 class="modal-title">نيش وسفره مودرن</h2>
+                <div class="modal-price">31,000 EGP</div>
+                <p class="modal-description">
+                    سفره 6 كراسي ونيش مودرن اعلي مستوي قشره بلده تشطيب دوكو فرن تنجيد قماش باندا مستورد اسفنج عالي الكثافه زجاج فاميه ورف زجاج مضئ للتخزين داخل قاعده الترابيزه
+                </p>
+                <div class="modal-features">
+                    <h4>Features:</h4>
+                    <ul>
+                        <li>نيش مقاس 135 سم</li>
+                        <li>٢ دلفه ميتل اسود </li>
+                        <li>٣ رف زجاج مضئ</li>
+                        <li>٦ كراسي زان احمر</li>
+                        <li>تربيزه مقاس 90*170</li>
+                        <li>تنجيد قماش باندا مستورد</li>
+                    </ul>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn primary">Contact Us</button>
+                    <button class="modal-btn secondary" onclick="closeModal()">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Product 2 Modal -->
+    <div class="modal-overlay" id="product2-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-image">
+                <div class="carousel-container">
+                    <img src="panda/1.jpg" alt="Modern Dining Set with natural wood table" class="carousel-image" />
+                    <button class="carousel-button prev" onclick="prevImage('product2')">❮</button>
+                    <button class="carousel-button next" onclick="nextImage('product2')">❯</button>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h2 class="modal-title">انتريه باندا</h2>
+                <div class="modal-price">25,000 EGP</div>
+                <p class="modal-description">
+                    انتريه باندا أحدث موديل
+خشب زان احمر يعنى قوه ومتانه
+الطقم مكون من كنبه صغيره +كنبه كبيره +٢ فوتيه
+                </p>
+                <div class="modal-features">
+                    <h4>Features:</h4>
+                    <ul>
+                        <li>خشب زان احمر</li>
+                        <li>اسفنج كثافه 38 مضغوط</li>
+                        <li>اجود انواع الاقمشه باندا مستورد</li>
+                        <li>فينش ممتاز</li>
+                        <li>متاح تنفيذ اي لون</li>
+                    </ul>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn primary">Contact Us</button>
+                    <button class="modal-btn secondary" onclick="closeModal()">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Product 3 Modal -->
+    <div class="modal-overlay" id="product3-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-image">
+                <div class="carousel-container">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Extendable+Table+1" alt="Minimalist Extendable Dining Table" class="carousel-image" />
+                    <button class="carousel-button prev" onclick="prevImage('product3')">❮</button>
+                    <button class="carousel-button next" onclick="nextImage('product3')">❯</button>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h2 class="modal-title">Minimalist Extendable Dining Table</h2>
+                <div class="modal-price">$1,599.00</div>
+                <p class="modal-description">
+                    An elegant extendable dining table with a clean, minimalist design. Features a durable matte-finish tabletop and sturdy metal legs. Easily extends to accommodate more guests, making it ideal for versatile dining needs.
+                </p>
+                <div class="modal-features">
+                    <h4>Features:</h4>
+                    <ul>
+                        <li>Durable matte laminate tabletop</li>
+                        <li>Powder-coated steel frame</li>
+                        <li>Includes one 50cm extension leaf</li>
+                        <li>Dimensions: 160cm × 90cm × 75cm</li>
+                        <li>Color: White & Black</li>
+                    </ul>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn primary">Contact Us</button>
+                    <button class="modal-btn secondary" onclick="closeModal()">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Product 4 Modal -->
+    <div class="modal-overlay" id="product4-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-image">
+                <div class="carousel-container">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Platform+Bed+1" alt="Platform Bed with Integrated Headboard" class="carousel-image" />
+                    <button class="carousel-button prev" onclick="prevImage('product4')">❮</button>
+                    <button class="carousel-button next" onclick="nextImage('product4')">❯</button>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h2 class="modal-title">Platform Bed with Integrated Headboard</h2>
+                <div class="modal-price">$1,799.00</div>
+                <p class="modal-description">
+                    A modern platform bed designed for simplicity and comfort. Features a low-profile frame and an integrated, subtly upholstered headboard, perfect for a minimalist bedroom aesthetic.
+                </p>
+                <div class="modal-features">
+                    <h4>Features:</h4>
+                    <ul>
+                        <li>Linen blend upholstery on headboard</li>
+                        <li>Solid pine wood frame with slat support</li>
+                        <li>No box spring required</li>
+                        <li>Dimensions: 180cm × 200cm × 90cm (H)</li>
+                        <li>Color: Charcoal Grey</li>
+                    </ul>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn primary">Contact Us</button>
+                    <button class="modal-btn secondary" onclick="closeModal()">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Product 5 Modal -->
+    <div class="modal-overlay" id="product5-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-image">
+                <div class="carousel-container">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Modular+Bookshelf+1" alt="Modular Open Bookshelf" class="carousel-image" />
+                    <button class="carousel-button prev" onclick="prevImage('product5')">❮</button>
+                    <button class="carousel-button next" onclick="nextImage('product5')">❯</button>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h2 class="modal-title">Modular Open Bookshelf</h2>
+                <div class="modal-price">$649.00</div>
+                <p class="modal-description">
+                    A versatile modular bookshelf with an open design, offering flexible storage and display options. Its clean lines and simple structure make it a perfect fit for any modern interior.
+                </p>
+                <div class="modal-features">
+                    <h4>Features:</h4>
+                    <ul>
+                        <li>Powder-coated steel frame with MDF shelves</li>
+                        <li>Adjustable shelf heights</li>
+                        <li>Can be combined with multiple units</li>
+                        <li>Dimensions: 180cm × 80cm × 30cm</li>
+                        <li>Color: Black & Natural Wood</li>
+                    </ul>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn primary">Contact Us</button>
+                    <button class="modal-btn secondary" onclick="closeModal()">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Product 6 Modal -->
+    <div class="modal-overlay" id="product6-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-image">
+                <div class="carousel-container">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Accent+Armchair+1" alt="Accent Armchair in navy blue" class="carousel-image" />
+                    <button class="carousel-button prev" onclick="prevImage('product6')">❮</button>
+                    <button class="carousel-button next" onclick="nextImage('product6')">❯</button>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h2 class="modal-title">Accent Armchair</h2>
+                <div class="modal-price">$599.00</div>
+                <p class="modal-description">
+                    A stylish accent armchair with a minimalist profile, perfect for adding a touch of modern elegance to any room. Features comfortable fabric upholstery and slender metal legs.
+                </p>
+                <div class="modal-features">
+                    <h4>Features:</h4>
+                    <ul>
+                        <li>Durable woven fabric upholstery</li>
+                        <li>Black metal legs</li>
+                        <li>Ergonomic design</li>
+                        <li>Dimensions: 70cm × 75cm × 80cm (H)</li>
+                        <li>Color: Navy Blue</li>
+                    </ul>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn primary">Contact Us</button>
+                    <button class="modal-btn secondary" onclick="closeModal()">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product 7 Modal -->
+    <div class="modal-overlay" id="product7-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-image">
+                <div class="carousel-container">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Geometric+Table+1" alt="Geometric Coffee Table with glass top" class="carousel-image" />
+                    <button class="carousel-button prev" onclick="prevImage('product7')">❮</button>
+                    <button class="carousel-button next" onclick="nextImage('product7')">❯</button>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h2 class="modal-title">Geometric Coffee Table</h2>
+                <div class="modal-price">$349.00</div>
+                <p class="modal-description">
+                    A striking geometric coffee table that combines a clear glass top with a unique metal base. Its open design adds visual lightness while providing a functional surface.
+                </p>
+                <div class="modal-features">
+                    <h4>Features:</h4>
+                    <ul>
+                        <li>Tempered glass top</li>
+                        <li>Powder-coated steel base</li>
+                        <li>Unique geometric design</li>
+                        <li>Dimensions: 90cm × 90cm × 40cm</li>
+                        <li>Color: Clear Glass & Black</li>
+                    </ul>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn primary">Contact Us</button>
+                    <button class="modal-btn secondary" onclick="closeModal()">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product 8 Modal -->
+    <div class="modal-overlay" id="product8-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-image">
+                <div class="carousel-container">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Arc+Lamp+1" alt="Minimalist Arc Floor Lamp" class="carousel-image" />
+                    <button class="carousel-button prev" onclick="prevImage('product8')">❮</button>
+                    <button class="carousel-button next" onclick="nextImage('product8')">❯</button>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h2 class="modal-title">Minimalist Arc Floor Lamp</h2>
+                <div class="modal-price">$189.00</div>
+                <p class="modal-description">
+                    A sleek arc floor lamp with a minimalist design, providing ambient lighting with a modern touch. Its slender profile and adjustable head make it a functional and aesthetic addition to any living area.
+                </p>
+                <div class="modal-features">
+                    <h4>Features:</h4>
+                    <ul>
+                        <li>Matte black metal finish</li>
+                        <li>Adjustable arc and shade</li>
+                        <li>Integrated LED lighting</li>
+                        <li>Height: 180cm</li>
+                        <li>Color: Black</li>
+                    </ul>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn primary">Contact Us</button>
+                    <button class="modal-btn secondary" onclick="closeModal()">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product 9 Modal (New) -->
+    <div class="modal-overlay" id="product9-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-image">
+                <div class="carousel-container">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Task+Chair+1" alt="Ergonomic Task Chair" class="carousel-image" />
+                    <button class="carousel-button prev" onclick="prevImage('product9')">❮</button>
+                    <button class="carousel-button next" onclick="nextImage('product9')">❯</button>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h2 class="modal-title">Ergonomic Task Chair</h2>
+                <div class="modal-price">$450.00</div>
+                <p class="modal-description">
+                    An ergonomic task chair designed for comfort and support during long work sessions. Features breathable mesh and adjustable components to promote good posture in a minimalist office setting.
+                </p>
+                <div class="modal-features">
+                    <h4>Features:</h4>
+                    <ul>
+                        <li>Breathable mesh back and fabric seat</li>
+                        <li>Adjustable lumbar support, height, and armrests</li>
+                        <li>Smooth-rolling casters</li>
+                        <li>Weight capacity: 120kg</li>
+                        <li>Color: Black</li>
+                    </ul>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn primary">Contact Us</button>
+                    <button class="modal-btn secondary" onclick="closeModal()">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product 10 Modal (New) -->
+    <div class="modal-overlay" id="product10-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-image">
+                <div class="carousel-container">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Console+Table+1" alt="Slim Entryway Console" class="carousel-image" />
+                    <button class="carousel-button prev" onclick="prevImage('product10')">❮</button>
+                    <button class="carousel-button next" onclick="nextImage('product10')">❯</button>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h2 class="modal-title">Slim Entryway Console</h2>
+                <div class="modal-price">$299.00</div>
+                <p class="modal-description">
+                    A slender and elegant console table, ideal for entryways or narrow spaces. Its minimalist design with clean lines provides a perfect surface for keys, mail, or decorative items.
+                </p>
+                <div class="modal-features">
+                    <h4>Features:</h4>
+                    <ul>
+                        <li>Solid wood top with powder-coated metal frame</li>
+                        <li>Space-saving design</li>
+                        <li>Easy assembly</li>
+                        <li>Dimensions: 100cm × 25cm × 75cm</li>
+                        <li>Color: Natural Wood & White</li>
+                    </ul>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn primary">Contact Us</button>
+                    <button class="modal-btn secondary" onclick="closeModal()">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product 11 Modal (New) -->
+    <div class="modal-overlay" id="product11-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-image">
+                <div class="carousel-container">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Outdoor+Lounge+1" alt="Outdoor Lounge Set" class="carousel-image" />
+                    <button class="carousel-button prev" onclick="prevImage('product11')">❮</button>
+                    <button class="carousel-button next" onclick="nextImage('product11')">❯</button>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h2 class="modal-title">Outdoor Lounge Set</h2>
+                <div class="modal-price">$1200.00</div>
+                <p class="modal-description">
+                    A modern outdoor lounge set designed for comfort and durability. Features weather-resistant materials and a minimalist aesthetic, perfect for creating a stylish outdoor living space.
+                </p>
+                <div class="modal-features">
+                    <h4>Features:</h4>
+                    <ul>
+                        <li>Powder-coated aluminum frame with quick-dry cushions</li>
+                        <li>UV and weather-resistant</li>
+                        <li>Includes two armchairs, a sofa, and a coffee table</li>
+                        <li>Easy to clean</li>
+                        <li>Color: Dark Grey</li>
+                    </ul>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn primary">Contact Us</button>
+                    <button class="modal-btn secondary" onclick="closeModal()">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product 12 Modal (New) -->
+    <div class="modal-overlay" id="product12-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-image">
+                <div class="carousel-container">
+                    <img src="https://via.placeholder.com/600x400/F5F5F5/333333?text=Sliding+Wardrobe+1" alt="Minimalist Sliding Door Wardrobe" class="carousel-image" />
+                    <button class="carousel-button prev" onclick="prevImage('product12')">❮</button>
+                    <button class="carousel-button next" onclick="nextImage('product12')">❯</button>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h2 class="modal-title">Minimalist Sliding Door Wardrobe</h2>
+                <div class="modal-price">$950.00</div>
+                <p class="modal-description">
+                    A spacious and elegantly designed wardrobe with smooth-gliding sliding doors, offering ample storage in a minimalist form. Its clean exterior integrates seamlessly into modern bedrooms.
+                </p>
+                <div class="modal-features">
+                    <h4>Features:</h4>
+                    <ul>
+                        <li>High-quality MDF with matte finish</li>
+                        <li>Smooth-gliding sliding doors</li>
+                        <li>Adjustable shelves and hanging rails</li>
+                        <li>Dimensions: 180cm × 60cm × 200cm (H)</li>
+                        <li>Color: White</li>
+                    </ul>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn primary">Contact Us</button>
+                    <button class="modal-btn secondary" onclick="closeModal()">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> <!-- Added AOS JS -->
+    <script>
+        // Global object to store current image index for each modal
+        const currentImageIndexes = {};
+
+        // Translations object
+        const translations = {
+            en: {
+                // Header Logo
+                'header-logo-english': 'Moreh',
+                'header-logo-arabic': '', // Keep empty for English
+
+                // Header Navigation
+                'nav-home': 'Home',
+                'nav-products': 'Products',
+                'nav-about': 'About Us',
+                'nav-testimonials': 'Testimonials',
+                'nav-contact': 'Contact',
+                'nav-faq': 'FAQ',
+
+                'lang-btn': 'English', // This is no longer used for the button text, but kept for consistency
+
+                // Hero Section
+                'hero-title': 'Modern Minimalist Furniture for Your Home',
+                'hero-subtitle': 'Discover our curated collection of sleek, functional, and elegant furniture designs.',
+                'hero-btn-text': 'Explore Collection',
+
+                // Products Section
+                'products-section-title': 'Our Minimalist Collection - مجموعتنا البسيطة',
+
+                // About Section
+                'about-section-title': 'About Moreh - عن مريح',
+                'about-heading': 'Crafting Modern Comfort Since 2025',
+                'about-paragraph1': 'Founded in Egypt in 2025, Moreh has become synonymous with modern minimalist furniture that combines sleek design with exceptional functionality.',
+                'about-paragraph2': 'Our name "Moreh" (مريح) means "comfortable" in Arabic, reflecting our commitment to creating furniture that enhances your living space with both style and comfort, all within a coherent minimalist aesthetic.',
+                'about-paragraph3': 'Transforming spaces with stylish, comfortable, and durable furniture. Your dream home starts here ❤.',
+                'about-paragraph4': 'Shipping all over Egypt.',
+
+                // FAQ Section
+                'faq-section-title': 'Frequently Asked Questions - الأسئلة الشائعة',
+                'faq-q1': 'Is delivery available to all governorates?',
+                'faq-a1': 'Yes, we provide delivery service to all governorates of Egypt within 3 to 7 working days depending on the area.',
+                'faq-q2': 'Can I request a specific color?',
+                'faq-a2': 'Yes, we can execute the color according to the customer\'s desire.',
+                'faq-q3': 'Can I request different sizes?',
+                'faq-a3': 'Of course, for some pieces, we offer size customization according to the customer\'s desire.',
+                'faq-q4': 'How can I contact support?',
+                'faq-a4': 'You can contact us directly through the fixed WhatsApp button or through the \'Contact Us\' button on each product page.',
+
+                // Footer
+                'footer-logo-english': 'Moreh',
+               // 'footer-logo-arabic': 'مريح', // This was commented out in original, keeping it consistent
+                'footer-about-text': 'Modern minimalist furniture combining sleek design with exceptional functionality for discerning homeowners.',
+                'footer-links-heading': 'Quick Links',
+                'footer-contact-heading': 'Contact Us',
+                'contact-address': 'Cairo Egypt',
+                'contact-phone': '01553188286',
+                'contact-email': 'adhamshalapy@yahoo.com',
+                'copyright-text': '2025 Moreh Furniture. All Rights Reserved.'
+            },
+            ar: {
+                // Header Logo
+                'header-logo-english': 'Moreh', // Display "Moreh" in English for the English part of the logo
+                'header-logo-arabic': '', // Keep this empty to only show "Moreh"
+
+                // Header Navigation
+                'nav-home': 'الرئيسية',
+                'nav-products': 'المنتجات',
+                'nav-about': 'عنا',
+                'nav-testimonials': 'الشهادات',
+                'nav-contact': 'اتصل بنا',
+                'nav-faq': 'الأسئلة الشائعة',
+                'lang-btn': 'العربية', // This is no longer used for the button text, but kept for consistency
+
+                // Hero Section
+                'hero-title': 'أثاث عصري بسيط لمنزلك',
+                'hero-subtitle': 'اكتشف مجموعتنا المنسقة من تصاميم الأثاث الأنيقة والعملية والمريحة.',
+                'hero-btn-text': 'اكتشف المجموعة',
+
+                // Products Section
+                'products-section-title': 'مجموعتنا البسيطة - Our Minimalist Collection',
+
+                // About Section
+                'about-section-title': 'عن مريح - About Moreh',
+                'about-heading': 'نصنع الراحة العصرية منذ عام 2025',
+                'about-paragraph1': 'تأسست مريح في مصر عام 2025، وأصبحت مرادفًا للأثاث العصري البسيط الذي يجمع بين التصميم الأنيق والوظائف الاستثنائية.',
+                'about-paragraph2': 'اسمنا "مريح" يعكس التزامنا بإنشاء أثاث يعزز مساحة معيشتك بالأناقة والراحة، كل ذلك ضمن جمالية بسيطة متماسكة.',
+                'about-paragraph3': 'نحول المساحات بأثاث أنيق ومريح ومتين. يبدأ منزل أحلامك هنا ❤.',
+                'about-paragraph4': 'الشحن متاح في جميع أنحاء مصر.',
+
+                // FAQ Section
+                'faq-section-title': 'الأسئلة الشائعة - Frequently Asked Questions',
+                'faq-q1': '📦 هل التوصيل متاح لكل المحافظات؟',
+                'faq-a1': 'نعم، بنوفر خدمة التوصيل لجميع محافظات مصر خلال 3 إلى 7 أيام عمل حسب المنطقة.',
+                'faq-q2': '🎨 هل ممكن اطلب لون معين؟',
+                'faq-a2': 'أيوه، نقدر ننفذ اللون حسب رغبه العميل.',
+                'faq-q3': '📏 هل ممكن أطلب مقاسات مختلفة؟',
+                'faq-a3': 'طبعًا، في بعض القطع بنوفر فيها تخصيص المقاسات حسب رغبة العميل.',
+                'faq-q4': '💬 إزاي أتواصل مع الدعم؟',
+                'faq-a4': 'تقدر تتواصل معنا مباشرة من خلال زر الواتساب الثابت أو من خلال زر "تواصل معنا" الموجود في صفحة كل منتج.',
+
+                // Footer
+                'footer-logo-english': 'Moreh',
+                'footer-logo-arabic': '', // This was commented out in original, keeping it consistent
+                'footer-about-text': 'أثاث عصري بسيط يجمع بين التصميم الأنيق والوظائف الاستثنائية لأصحاب المنازل المميزين.',
+                'footer-links-heading': 'روابط سريعة',
+                'footer-contact-heading': 'اتصل بنا',
+                'contact-address': 'القاهرة، مصر',
+                'contact-phone': '01553188286',
+                'contact-email': 'adhamshalapy@yahoo.com',
+                'copyright-text': ' 2025 أثاث مريح. جميع الحقوق محفوظة.'
+            }
+        };
+
+        // Function to close the language dropdown (no longer needed for icon-based switcher)
+        function closeLanguageDropdown() {
+            // This function is now effectively deprecated as the dropdown is removed.
+            // Kept as a placeholder if future dropdowns are added.
+        }
+
+        // Modified changeLanguage function to also close the dropdown
+        function changeLanguageAndClose(lang) {
+            changeLanguage(lang); // Call the original language change function
+            closeLanguageDropdown(); // Close the dropdown (if it existed)
+        }
+
+        let currentLanguage = 'en'; // Track current language
+
+        function changeLanguage(lang) {
+            currentLanguage = lang; // Update current language tracker
+            const currentTranslations = translations[lang];
+
+            // Set body direction and font-family
+            if (lang === 'ar') {
+                document.body.classList.add('rtl');
+                document.body.style.fontFamily = "'Cairo', sans-serif";
+            } else {
+                document.body.classList.remove('rtl');
+                document.body.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+            }
+
+            // Update Header Logo (no longer text, but keeping the IDs for potential future use or if text is re-introduced)
+            // document.getElementById('header-logo-english').textContent = currentTranslations['header-logo-english'];
+            // document.getElementById('header-logo-arabic').textContent = currentTranslations['header-logo-arabic'];
+
+            // Update Header Navigation
+            document.querySelector('nav ul li a[data-en="Home"]').textContent = currentTranslations['nav-home'];
+            document.querySelector('nav ul li a[data-en="Products"]').textContent = currentTranslations['nav-products'];
+            document.querySelector('nav ul li a[data-en="About Us"]').textContent = currentTranslations['nav-about'];
+            document.querySelector('nav ul li a[data-en="Testimonials"]').textContent = currentTranslations['nav-testimonials'];
+            document.querySelector('nav ul li a[data-en="Contact"]').textContent = currentTranslations['nav-contact'];
+            document.querySelector('nav ul li a[data-en="FAQ"]').textContent = currentTranslations['nav-faq'];
+
+
+            // Update Hero Section
+            document.getElementById('hero-title').textContent = currentTranslations['hero-title'];
+            document.getElementById('hero-subtitle').textContent = currentTranslations['hero-subtitle'];
+            document.getElementById('hero-btn-text').textContent = currentTranslations['hero-btn-text'];
+
+            // Update Products Section Title
+            // This title should still be translatable as it contains both English and Arabic
+            document.getElementById('products-section-title').textContent = currentTranslations['products-section-title'];
+
+            // Update About Section
+            document.getElementById('about-section-title').textContent = currentTranslations['about-section-title'];
+            document.getElementById('about-heading').textContent = currentTranslations['about-heading'];
+            document.getElementById('about-paragraph1').textContent = currentTranslations['about-paragraph1'];
+            document.getElementById('about-paragraph2').textContent = currentTranslations['about-paragraph2'];
+            document.getElementById('about-paragraph3').textContent = currentTranslations['about-paragraph3'];
+            document.getElementById('about-paragraph4').textContent = currentTranslations['about-paragraph4'];
+
+            // Update FAQ Section
+            document.getElementById('faq-section-title').textContent = currentTranslations['faq-section-title'];
+            document.querySelector('.faq-item:nth-child(1) .faq-question span').textContent = currentTranslations['faq-q1'];
+            document.querySelector('.faq-item:nth-child(1) .faq-answer').textContent = currentTranslations['faq-a1'];
+            document.querySelector('.faq-item:nth-child(2) .faq-question span').textContent = currentTranslations['faq-q2'];
+            document.querySelector('.faq-item:nth-child(2) .faq-answer').textContent = currentTranslations['faq-a2'];
+            document.querySelector('.faq-item:nth-child(3) .faq-question span').textContent = currentTranslations['faq-q3'];
+            document.querySelector('.faq-item:nth-child(3) .faq-answer').textContent = currentTranslations['faq-a3'];
+            document.querySelector('.faq-item:nth-child(4) .faq-question span').textContent = currentTranslations['faq-q4'];
+            document.querySelector('.faq-item:nth-child(4) .faq-answer').textContent = currentTranslations['faq-a4'];
+
+
+            // Update Footer
+            // document.getElementById('footer-logo-english').textContent = currentTranslations['footer-logo-english']; // Logo is now image
+            // document.getElementById('footer-logo-arabic').textContent = currentTranslations['footer-logo-arabic']; // Logo is now image
+            document.getElementById('footer-about-text').textContent = currentTranslations['footer-about-text'];
+            document.getElementById('footer-links-heading').textContent = currentTranslations['footer-links-heading'];
+            document.getElementById('footer-contact-heading').textContent = currentTranslations['footer-contact-heading'];
+            document.getElementById('contact-address').textContent = currentTranslations['contact-address'];
+            document.getElementById('contact-phone').textContent = currentTranslations['contact-phone'];
+            document.getElementById('contact-email').textContent = currentTranslations['contact-email'];
+            document.getElementById('copyright-text').textContent = currentTranslations['copyright-text'];
+
+            // Update footer quick links (using data attributes for consistency)
+            document.querySelectorAll('.footer-links ul li a').forEach(link => {
+                link.textContent = link.dataset[lang];
+            });
+
+            // Product titles and descriptions in modals are now hardcoded Arabic, no JS update needed.
+            // Testimonial texts, names, and titles are now hardcoded Arabic, no JS update needed.
+        }
+        
+        // Modal Functions
+        function openModal(productId) {
+            const modalOverlay = document.getElementById(productId + '-modal');
+            const productCard = document.querySelector(`.product-card[onclick="openModal('${productId}')"]`);
+            const imagesString = productCard.dataset.images;
+            const images = imagesString.split(',').map(img => img.trim());
+
+            const carouselImage = modalOverlay.querySelector('.carousel-image');
+            carouselImage.src = images[0]; // Set initial image
+            carouselImage.dataset.images = imagesString; // Store all images on the carousel image element
+            currentImageIndexes[productId] = 0; // Initialize current image index
+
+            // Get the primary button within the modal
+            const primaryButton = modalOverlay.querySelector('.modal-btn.primary');
+
+            // Change button text to "Contact Us"
+            primaryButton.textContent = 'Contact Us';
+
+            // Change the onclick event to open WhatsApp
+            // IMPORTANT: Replace '201553188286' with your actual WhatsApp phone number (including country code, no + or 00)
+            // You can customize the pre-filled message after '?text='
+            primaryButton.onclick = function() {
+                window.open('https://wa.me/201553188286?text=Hello!%20I%27m%20interested%20in%20a%20product%20from%20your%27s%20website.', '_blank');
+            };
+
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Hide main body scroll when modal is open
+        }
+        
+        function closeModal() {
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.classList.remove('active');
+
+                // Revert the primary button for each modal to its original state
+                const primaryButton = modal.querySelector('.modal-btn.primary');
+                if (primaryButton) {
+                    primaryButton.textContent = 'Contact Us'; // Set back to original text
+                    primaryButton.onclick = null; // Remove the WhatsApp click handler
+                    // If there was an original "Contact Us" function, you'd re-assign it here.
+                    // Since the original HTML doesn't have a specific JS function for "Contact Us",
+                    // setting it to null is fine, or you could add a generic "Contact Us" function if needed.
+                }
+            });
+            document.body.style.overflow = ''; // Restore body scroll when modal is closed
+        }
+        
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+        });
+
+        // Carousel Functions
+        function showImage(modalId, imageIndex) {
+            const modalOverlay = document.getElementById(modalId + '-modal');
+            const carouselImage = modalOverlay.querySelector('.carousel-image');
+            const imagesString = carouselImage.dataset.images;
+            const images = imagesString.split(',').map(img => img.trim());
+
+            if (imageIndex >= 0 && imageIndex < images.length) {
+                carouselImage.src = images[imageIndex];
+                currentImageIndexes[modalId] = imageIndex;
+            }
+        }
+
+        function nextImage(modalId) {
+            const modalOverlay = document.getElementById(modalId + '-modal');
+            const carouselImage = modalOverlay.querySelector('.carousel-image');
+            const imagesString = carouselImage.dataset.images;
+            const images = imagesString.split(',').map(img => img.trim());
+            
+            let newIndex = currentImageIndexes[modalId] + 1;
+            if (newIndex >= images.length) {
+                newIndex = 0; // Loop back to the first image
+            }
+            showImage(modalId, newIndex);
+        }
+
+        function prevImage(modalId) {
+            const modalOverlay = document.getElementById(modalId + '-modal');
+            const carouselImage = modalOverlay.querySelector('.carousel-image');
+            const imagesString = carouselImage.dataset.images;
+            const images = imagesString.split(',').map(img => img.trim());
+
+            let newIndex = currentImageIndexes[modalId] - 1;
+            if (newIndex < 0) {
+                newIndex = images.length - 1; // Loop back to the last image
+            }
+            showImage(modalId, newIndex);
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Animate elements when visible (Removed as AOS handles this)
+        /*
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.section-title h2, .product-card, .about-text');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementPosition < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Initial check
+        */
+        
+        // Mobile Menu
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('nav').classList.toggle('show'); // Toggle 'show' class on the <nav> element
+        });
+
+        // Close mobile menu when a link is clicked (optional, but good UX)
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelector('nav').classList.remove('show');
+            });
+        });
+
+        // Dynamic Background Script
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('hero-canvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouse = {
+                x: undefined,
+                y: undefined,
+                radius: 150
+            };
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                const heroSection = document.querySelector('.hero');
+                if (heroSection) {
+                    canvas.height = heroSection.offsetHeight;
+                } else {
+                    canvas.height = window.innerHeight * 0.9;
+                }
+            }
+
+            class Particle {
+                constructor(x, y, directionX, directionY, size, color) {
+                    this.x = x;
+                    this.y = y;
+                    this.directionX = directionX;
+                    this.directionY = directionY;
+                    this.size = size;
+                    let baseColor = 'rgba(0, 0, 0, 0.6)'; // Default for light mode
+                    if (document.body.classList.contains('dark-mode')) {
+                        baseColor = 'rgba(255, 255, 255, 0.6)'; // For dark mode
+                    }
+                    this.color = baseColor;
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                }
+
+                update() {
+                    if (this.x + this.size > canvas.width || this.x - this.size < 0) {
+                        this.directionX = -this.directionX;
+                    }
+                    if (this.y + this.size > canvas.height || this.y - this.size < 0) {
+                        this.directionY = -this.directionY;
+                    }
+
+                    this.x += this.directionX;
+                    this.y += this.directionY;
+
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < mouse.radius + this.size) {
+                        if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
+                            this.x += 10;
+                        }
+                        if (mouse.x > this.x && this.x > this.size * 10) {
+                            this.x -= 10;
+                        }
+                        if (mouse.y < this.y && this.y < canvas.height - this.size * 10) {
+                            this.y += 10;
+                        }
+                        if (mouse.y > this.y && this.y > this.size * 10) {
+                            this.y -= 10;
+                        }
+                    }
+
+                    this.draw();
+                }
+            }
+
+            function init() {
+                particles = [];
+                let numberOfParticles = (canvas.width * canvas.height) / 9000;
+                for (let i = 0; i < numberOfParticles; i++) {
+                    let size = (Math.random() * 5) + 1;
+                    let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
+                    let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
+                    let directionX = (Math.random() * 0.5) - 0.25;
+                    let directionY = (Math.random() * 0.5) - 0.25;
+                    
+                    particles.push(new Particle(x, y, directionX, directionY, size));
+                }
+            }
+
+            function connect() {
+                let opacityValue = 1;
+                let lineColor = 'rgba(0, 0, 0,'; // Default for light mode
+                if (document.body.classList.contains('dark-mode')) {
+                    lineColor = 'rgba(255, 255, 255,'; // For dark mode
+                }
+
+                for (let a = 0; a < particles.length; a++) {
+                    for (let b = a; b < particles.length; b++) {
+                        let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x)) +
+                                       ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
+
+                        if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+                            opacityValue = 1 - (distance / 20000);
+                            ctx.strokeStyle = lineColor + opacityValue + ')';
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[a].x, particles[a].y);
+                            ctx.lineTo(particles[b].x, particles[b].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                }
+                connect();
+            }
+
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+                init();
+            });
+
+            window.addEventListener('mousemove', (event) => {
+                const canvasRect = canvas.getBoundingClientRect();
+                mouse.x = event.clientX - canvasRect.left;
+                mouse.y = event.clientY - canvasRect.top;
+            });
+
+            window.addEventListener('mouseout', () => {
+                mouse.x = undefined;
+                mouse.y = undefined;
+            });
+
+            // Re-initialize particles on dark mode toggle to update colors
+            const darkModeToggleBtn = document.getElementById('dark-mode-toggle-btn');
+            if (darkModeToggleBtn) {
+                darkModeToggleBtn.addEventListener('click', () => {
+                    // Give a slight delay to allow CSS transition to apply dark mode class
+                    setTimeout(() => {
+                        init(); // Re-initialize particles with new colors
+                    }, 500); 
+                });
+            }
+
+            resizeCanvas();
+            init();
+            animate();
+        });
+
+        // Initial language and dark mode setting
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize AOS
+            AOS.init({
+                duration: 600, // default duration for animations
+                easing: 'ease-out', // default easing for animations
+                once: true, // whether animation should happen only once - while scrolling down
+                mirror: false, // whether elements should animate out while scrolling past them
+            });
+
+            // Language Toggle
+            const languageToggleBtn = document.getElementById('language-toggle-btn');
+            languageToggleBtn.addEventListener('click', () => {
+                const newLang = currentLanguage === 'en' ? 'ar' : 'en';
+                changeLanguage(newLang);
+                localStorage.setItem('morehLang', newLang); // Save language preference
+            });
+
+            // Dark Mode Toggle
+            const darkModeToggleBtn = document.getElementById('dark-mode-toggle-btn');
+            darkModeToggleBtn.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                localStorage.setItem('morehDarkMode', isDarkMode); // Save dark mode preference
+            });
+
+            // Load preferences on page load
+            const savedLang = localStorage.getItem('morehLang') || 'en';
+            changeLanguage(savedLang);
+
+            const savedDarkMode = localStorage.getItem('morehDarkMode');
+            if (savedDarkMode === 'true') {
+                document.body.classList.add('dark-mode');
+            } else if (savedDarkMode === 'false') {
+                document.body.classList.remove('dark-mode');
+            }
+
+            // FAQ Accordion Logic
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const icon = question.querySelector('.icon');
+
+                    // Close all other open answers
+                    document.querySelectorAll('.faq-answer.active').forEach(activeAnswer => {
+                        if (activeAnswer !== answer) {
+                            activeAnswer.classList.remove('active');
+                            activeAnswer.previousElementSibling.classList.remove('active');
+                        }
+                    });
+
+                    // Toggle the clicked answer
+                    answer.classList.toggle('active');
+                    question.classList.toggle('active');
+                });
+            });
+
+            // Header Scroll Behavior
+            const header = document.querySelector('header');
+            const scrollThreshold = 50; // Pixels to scroll before header transforms
+
+            function handleScroll() {
+                if (window.scrollY > scrollThreshold) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
+
+            // Initial check in case the page is loaded with a scroll position
+            handleScroll();
+
+            // Add scroll event listener
+            window.addEventListener('scroll', handleScroll);
+        });
+    </script>
+</body>
+</html>
